@@ -66,22 +66,22 @@ async function convertProjectToSingleHost(host, manifestType) {
 
   // Remove code from the TextInsertion component that is needed only for tests or
   // that is host-specific.
-  const originalTextInsertionComponentContent = await readFileAsync(
-    `./src/taskpane/components/TextInsertion.tsx`,
-    "utf8"
-  );
-  let updatedTextInsertionComponentContent = originalTextInsertionComponentContent.replace(
-    `import { selectInsertionByHost } from "../../host-relative-text-insertion";`,
-    `import insertText from "../office-document";`
-  );
-  updatedTextInsertionComponentContent = updatedTextInsertionComponentContent.replace(
-    `const insertText = await selectInsertionByHost();`,
-    ``
-  );
-  await writeFileAsync(`./src/taskpane/components/TextInsertion.tsx`, updatedTextInsertionComponentContent);
+  // const originalTextInsertionComponentContent = await readFileAsync(
+  //   `./src/taskpane/components/TextInsertion.tsx`,
+  //   "utf8"
+  // );
+  // let updatedTextInsertionComponentContent = originalTextInsertionComponentContent.replace(
+  //   `import { selectInsertionByHost } from "../../host-relative-text-insertion";`,
+  //   `import insertText from "../office-document";`
+  // );
+  // updatedTextInsertionComponentContent = updatedTextInsertionComponentContent.replace(
+  //   `const insertText = await selectInsertionByHost();`,
+  //   ``
+  // );
+  //await writeFileAsync(`./src/taskpane/components/TextInsertion.tsx`, updatedTextInsertionComponentContent);
 
 
-  await unlinkFileAsync(`./src/host-relative-text-insertion.ts`);
+  //await unlinkFileAsync(`./src/host-relative-text-insertion.ts`);
 
   // Delete test folder
   deleteFolder(path.resolve(`./test`));
