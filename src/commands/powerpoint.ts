@@ -18,7 +18,7 @@ Office.onReady((info) => {
  */
 async function actionPowerPoint(event: Office.AddinCommands.Event) {
   try {
-    await PowerPoint.run(async (context) => {
+    await PowerPoint.run(async () => {
       const options: Office.SetSelectedDataOptions = { coercionType: Office.CoercionType.Text };
       await Office.context.document.setSelectedDataAsync(" ", options);
       await Office.context.document.setSelectedDataAsync("Hello World!", options);
