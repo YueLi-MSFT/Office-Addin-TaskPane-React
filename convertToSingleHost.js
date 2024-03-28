@@ -43,9 +43,6 @@ async function convertProjectToSingleHost(host, manifestType) {
     await writeFileAsync(`./manifest.${manifestType}`, manifestContent);
   }
 
-  // Copy over host-specific taskpane code to taskpane.ts
-  const taskpaneFilePath = "./src/taskpane/office-document.ts";
-  let taskpaneContent = await readFileAsync(taskpaneFilePath, "utf8");
   let targetHosts = host === "wxpo" ? ["word", "excel", "powerpoint", "outlook"] : [host];
 
   for (const host of hosts) {
@@ -53,35 +50,12 @@ async function convertProjectToSingleHost(host, manifestType) {
       if (fs.existsSync(`./src/taskpane/${host}-office-document.ts`)) {
         await unlinkFileAsync(`./src/taskpane/${host}-office-document.ts`);
       }
-      // remove unneeded imports
-      taskpaneContent = taskpaneContent.replace(`import "./${host}-office-document";`, "").replace(/^\s*[\r\n]/gm, "");
     }
     // Remove unneeded manifest templates
     if (fs.existsSync(`./manifest.${host}.${manifestType}`)) {
       await unlinkFileAsync(`./manifest.${host}.${manifestType}`);
     }
   }
-  await writeFileAsync(taskpaneFilePath, taskpaneContent);
-
-
-  // Remove code from the TextInsertion component that is needed only for tests or
-  // that is host-specific.
-  // const originalTextInsertionComponentContent = await readFileAsync(
-  //   `./src/taskpane/components/TextInsertion.tsx`,
-  //   "utf8"
-  // );
-  // let updatedTextInsertionComponentContent = originalTextInsertionComponentContent.replace(
-  //   `import { selectInsertionByHost } from "../../host-relative-text-insertion";`,
-  //   `import insertText from "../office-document";`
-  // );
-  // updatedTextInsertionComponentContent = updatedTextInsertionComponentContent.replace(
-  //   `const insertText = await selectInsertionByHost();`,
-  //   ``
-  // );
-  //await writeFileAsync(`./src/taskpane/components/TextInsertion.tsx`, updatedTextInsertionComponentContent);
-
-
-  //await unlinkFileAsync(`./src/host-relative-text-insertion.ts`);
 
   // Delete test folder
   deleteFolder(path.resolve(`./test`));
