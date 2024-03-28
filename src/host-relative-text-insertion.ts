@@ -1,6 +1,7 @@
 import { default as insertExcelText } from "./taskpane/excel-office-document";
 import { default as insertPowerPointText } from "./taskpane/powerpoint-office-document";
 import { default as insertWordText } from "./taskpane/word-office-document";
+import { default as insertOutlookText } from "./taskpane/outlook-office-document";
 
 /* global Office */
 
@@ -20,6 +21,9 @@ export const selectInsertionByHost = async () => {
       case Office.HostType.Word: {
         insertText = insertWordText;
         break;
+      }
+      case Office.HostType.Outlook: {
+        insertText = insertOutlookText;
       }
       default: {
         throw new Error("There is no end-to-end test for that host.");
