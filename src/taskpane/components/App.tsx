@@ -8,6 +8,7 @@ import { Ribbon24Regular, LockOpen24Regular, DesignIdeas24Regular } from "@fluen
 
 interface AppProps {
   title: string;
+  host: Office.HostType;
 }
 
 const useStyles = makeStyles({
