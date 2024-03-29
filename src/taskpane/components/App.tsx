@@ -2,6 +2,7 @@ import * as React from "react";
 import Header from "./Header";
 import HeroList, { HeroListItem } from "./HeroList";
 import TextInsertion from "./TextInsertion";
+import TextInsertionForOutlook from "./TextInsertionForOutlook";
 import { makeStyles } from "@fluentui/react-components";
 import { Ribbon24Regular, LockOpen24Regular, DesignIdeas24Regular } from "@fluentui/react-icons";
 
@@ -38,7 +39,8 @@ const App = (props: AppProps) => {
     <div className={styles.root}>
       <Header logo="assets/logo-filled.png" title={props.title} message="Welcome" />
       <HeroList message="Discover what this add-in can do for you today!" items={listItems} />
-      <TextInsertion />
+      {props.host !== Office.HostType.Outlook && <TextInsertion />}
+      {props.host === Office.HostType.Outlook && <TextInsertionForOutlook />}
     </div>
   );
 };
